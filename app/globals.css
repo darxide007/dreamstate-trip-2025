@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0b0f14;
+  --card: #101720;
+  --text: #e8f5ff;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(1000px 500px at 10% 10%, rgba(25,219,255,0.05), transparent 40%),
+              radial-gradient(800px 400px at 90% 60%, rgba(208,0,255,0.06), transparent 45%),
+              #0b0f14;
+  color: var(--text);
+}
+
+.container-narrow {
+  @apply max-w-3xl mx-auto px-4;
+}
+
+.card {
+  @apply bg-[var(--card)]/70 backdrop-blur rounded-2xl p-6 shadow-glow border border-white/5;
+}
+
+a {
+  @apply text-neon-400 hover:text-neon-300 underline-offset-4 hover:underline;
+}
