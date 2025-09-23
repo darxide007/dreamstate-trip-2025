@@ -23,8 +23,11 @@ body {
   @apply max-w-3xl mx-auto px-4;
 }
 
-.card {
-  @apply bg-[var(--card)]/70 backdrop-blur rounded-2xl p-6 shadow-glow border border-white/5;
+@layer components {
+  .card {
+    background-color: rgb(16 23 32 / 0.7); /* #101720 with 70% opacity */
+    @apply backdrop-blur rounded-2xl p-6 shadow-glow border border-white/5;
+  }
 }
 
 a {
