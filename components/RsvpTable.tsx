@@ -60,13 +60,25 @@ export default function RsvpTable() {
 
 function formatCell(val: string, col: string) {
   if (!val) return "";
-  if (col.toLowerCase().includes("timestamp")) {
-    try {
-      const d = new Date(val);
-      return d.toLocaleString();
-    } catch {
-      return val;
+
+  // Try to parse as a date if the column looks like time or timestamp
+  if (
+    col.toLowerCase().includes("time") ||
+    col.toLowerCase().includes("timestamp")
+  ) {
+    const d = new Date(val);
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
     }
   }
+
   return val;
 }
+
