@@ -18,15 +18,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Sparkles className="w-5 h-5 text-neon-400" />
               <span className="font-semibold tracking-wide">Dreamstate Trip 2025</span>
             </Link>
-            <div className="ml-auto flex gap-4 text-sm">
-              <Link href="/itinerary">Itinerary</Link>
-              <Link href="/lodging">Lodging</Link>
-              <Link href="/budget">Budget</Link>
-              <Link href="/packing">Packing</Link>
-              <Link href="/logistics">Logistics</Link>
-              <Link href="/links">Links</Link>
-              <Link href="/fun">Fun</Link>
-            </div>
+			<div className="ml-auto flex gap-4 text-sm">
+			  <Link href="/itinerary">Itinerary</Link>
+			  <Link href="/rsvps">RSVPs</Link>          {/* ← add this line */}
+			  <Link href="/lodging">Lodging</Link>
+			  <Link href="/budget">Budget</Link>
+			  <Link href="/packing">Packing</Link>
+			  <Link href="/logistics">Logistics</Link>
+			  <Link href="/links">Links</Link>
+			  <Link href="/fun">Fun</Link>
+			</div>
           </nav>
         </header>
         <main className="container-narrow py-8">{children}</main>

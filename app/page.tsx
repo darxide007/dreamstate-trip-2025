@@ -24,13 +24,19 @@ export default function Home() {
       </section>
 
       <section className="grid md:grid-cols-2 gap-6">
-        <div className="card">
-          <h3 className="text-xl font-semibold mb-2">RSVP & Flights</h3>
-          <p className="text-white/70 mb-4">
-            Enter your name and flight details. This will post to our Google Sheet.
-          </p>
-          <RSVPForm />
-        </div>
+       <div className="card">
+		  <h3 className="text-xl font-semibold mb-2">RSVP & Flights</h3>
+		  <p className="text-white/70 mb-4">
+			Enter your name and flight details. This will post to our Google Sheet.
+		  </p>
+		  <RSVPForm />
+		  <a
+			href="/rsvps"
+			className="inline-block mt-3 rounded-lg bg-neon-500 hover:bg-neon-400 text-black font-semibold px-4 py-2 shadow-glow"
+		  >
+			View RSVPs
+		  </a>
+		</div>
         <div className="card">
           <h3 className="text-xl font-semibold mb-2">Quick Links</h3>
           <ul className="list-disc list-inside space-y-2">
