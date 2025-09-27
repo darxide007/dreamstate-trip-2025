@@ -9,7 +9,8 @@ export const tripConfig = {
     reddit: "https://www.reddit.com/r/Dreamstate/"
   },
   lodging: {
-    airbnbPlaceholder: "https://www.airbnb.com/"
+  name: "Long Beach 3BR Coastal Retreat (Homes & Villas by Marriott)",
+  url: "https://homes-and-villas.marriott.com/en/properties/40506069-long-beach-3br-coastal-retreat-w-luxe-touch?gallery_view_enabled=false"
   },
   packingList: [
     "Government ID",
