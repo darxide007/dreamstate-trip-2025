@@ -18,15 +18,16 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="card w-full max-w-sm text-center">
-        {/* Logo */}
-        <img
-          src="/DreamStateBanner.jpg"
-          alt="Dreamstate Logo"
-          className="mx-auto mb-6 w-48 md:w-64"
-        />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white px-4">
+      {/* Logo section */}
+      <img
+        src="/dreamstate-logo.png"
+        alt="Dreamstate Logo"
+        className="mb-8 w-64 md:w-96 lg:w-[32rem]"
+      />
 
+      {/* Card with passcode form */}
+      <div className="card w-full max-w-sm text-center">
         <h1 className="text-2xl font-bold mb-4">Dreamstate Trip 2025</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
