@@ -20,13 +20,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Link>
 			<div className="ml-auto flex gap-4 text-sm">
 			  <Link href="/itinerary">Itinerary</Link>
-			  <Link href="/rsvps">RSVPs</Link>          {/* ← add this line */}
+			  <Link href="/rsvps">RSVPs</Link>
 			  <Link href="/lodging">Lodging</Link>
-			  <Link href="/budget">Budget</Link>
 			  <Link href="/packing">Packing</Link>
 			  <Link href="/logistics">Logistics</Link>
 			  <Link href="/links">Links</Link>
-			  <Link href="/fun">Fun</Link>
 			</div>
           </nav>
         </header>
