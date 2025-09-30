@@ -66,7 +66,7 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
 
       {/* Passcode card */}
       <div className="card w-full max-w-sm text-center bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_30px_rgba(0,255,255,0.2)]">
-        <h1 className="text-2xl font-bold mb-4">Dreamstate Trip 2025</h1>
+        <h1 className="text-2xl font-bold mb-4">Dreamstate Fiend Trip 2025</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             name="pass"
