@@ -23,7 +23,7 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
       <img
         src="/dreamstate-logo.png"
         alt="Dreamstate Logo"
-        className="mb-8 w-64 md:w-96 lg:w-[32rem]"
+        className="mb-8 w-full max-w-5xl"
       />
 
       {/* Card with passcode form */}
