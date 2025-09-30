@@ -18,14 +18,16 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
   }
 
   return (
-	<div className="min-h-screen flex flex-col items-center justify-center text-white px-4"
-		 style={{
-		   background: `
-			 radial-gradient(1000px 600px at 10% 20%, rgba(0,255,255,0.1), transparent 60%),
-			 radial-gradient(900px 500px at 90% 70%, rgba(255,0,255,0.08), transparent 50%),
-			 linear-gradient(to bottom right, #050b18, #0b1226)
-		   `
-		 }}>
+	<div
+	  className="min-h-screen flex flex-col items-center text-white px-4 pt-16"
+	  style={{
+		background: `
+		  radial-gradient(1000px 600px at 10% 20%, rgba(0,255,255,0.1), transparent 60%),
+		  radial-gradient(900px 500px at 90% 70%, rgba(255,0,255,0.08), transparent 50%),
+		  linear-gradient(to bottom right, #050b18, #0b1226)
+		`
+	  }}
+	>
       {/* Logo section */}
 		<img
 			src="/dreamstate-logo.png"
