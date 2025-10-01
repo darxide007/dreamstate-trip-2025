@@ -1,9 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-type RsvpRow = {
-  [key: string]: string;
-};
+type RsvpRow = Record<string, string>;
 
 export default function RsvpTable() {
   const [rows, setRows] = useState<RsvpRow[]>([]);
@@ -29,8 +27,28 @@ export default function RsvpTable() {
   if (err) return <div className="text-red-300">Error: {err}</div>;
   if (!rows.length) return <div className="text-white/70">No RSVPs yet.</div>;
 
-  // Build columns from the first row’s keys
-  const cols = Object.keys(rows[0]);
+  // Build columns from keys of first row, then filter + order them
+  const rawCols = Object.keys(rows[0]);
+
+  // 1) Remove any column that looks like a timestamp
+  const colsNoTs = rawCols.filter(
+    (c) => !/timestamp/i.test(c)
+  );
+
+  // 2) Desired order priority
+  const desiredOrder = [
+    "name",
+    "arrival flight",
+    "arrival time",
+    "departure flight",
+    "departure time",
+  ];
+
+  const cols = colsNoTs.sort((a, b) => {
+    const ai = indexInDesired(a, desiredOrder);
+    const bi = indexInDesired(b, desiredOrder);
+    return ai - bi;
+  });
 
   return (
     <div className="overflow-x-auto">
@@ -58,16 +76,46 @@ export default function RsvpTable() {
   );
 }
 
+function indexInDesired(col: string, order: string[]) {
+  const lc = col.toLowerCase();
+  const idx = order.findIndex((o) => lc.includes(o));
+  return idx === -1 ? order.length + 1 : idx;
+}
+
 function formatCell(val: string, col: string) {
   if (!val) return "";
 
-  // Try to parse as a date if the column looks like time or timestamp
-  if (
-    col.toLowerCase().includes("time") ||
-    col.toLowerCase().includes("timestamp")
-  ) {
+  const lc = col.toLowerCase();
+  const looksLikeTime =
+    lc.includes("time") || lc.includes("date") || lc.includes("when");
+
+  if (looksLikeTime) {
     const d = new Date(val);
     if (!isNaN(d.getTime())) {
+      // Arrival time → force Pacific Time
+      if (lc.includes("arrival")) {
+        return d.toLocaleString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+          timeZone: "America/Los_Angeles",
+        });
+      }
+      // Departure time → viewer's local timezone (no timeZone option)
+      if (lc.includes("departure")) {
+        return d.toLocaleString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        });
+      }
+      // Any other time-like field → default to local
       return d.toLocaleString("en-US", {
         month: "2-digit",
         day: "2-digit",
@@ -81,4 +129,3 @@ function formatCell(val: string, col: string) {
 
   return val;
 }
-
