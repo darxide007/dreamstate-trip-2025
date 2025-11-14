@@ -17,6 +17,17 @@ export default function Page() {
             <div className="text-lg font-semibold">
               {lodging.name || "Marriott Homes & Villas — Long Beach"}
             </div>
+            <div className="mt-2 text-white/70">
+              Address:{" "}
+              <a
+                className="underline hover:text-white"
+                target="_blank"
+                rel="noreferrer"
+                href="https://www.google.com/maps?q=West+Ocean+Boulevard+200,+Long+Beach,+CA,+USA,+90802-4601"
+              >
+                West Ocean Boulevard 200, Long Beach, CA, USA, 90802-4601
+              </a>
+            </div>
             <a
               className="inline-block mt-3 rounded-lg bg-neon-500 hover:bg-neon-400 text-black font-semibold px-4 py-2 shadow-glow"
               target="_blank"
