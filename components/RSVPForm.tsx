@@ -1,59 +1,40 @@
 "use client";
 
+import type React from "react";
+
 export default function RSVPForm() {
-  const webhook = process.env.NEXT_PUBLIC_SHEETS_WEBHOOK_URL;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form) as any);
-
-    if (!webhook) {
-      alert("Webhook URL not set (NEXT_PUBLIC_SHEETS_WEBHOOK_URL). Add it in Vercel → Settings → Environment Variables, then redeploy.");
-      return;
-    }
+    const data = Object.fromEntries(new FormData(form).entries());
 
     try {
-      // Send as x-www-form-urlencoded to avoid CORS preflight (OPTIONS)
-      const body = new URLSearchParams(data as Record<string, string>).toString();
-
-      const res = await fetch(webhook, {
+      const res = await fetch("/api/rsvps", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-        body
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
       });
 
-      if (!res.ok) {
-        // Fallback: blind post (no-cors) – can't read response, but Sheets usually receives it
-        await fetch(webhook, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-          body
-        });
-        alert("Submitted! (fallback). Check the Google Sheet to confirm.");
-      } else {
-        alert("Submitted! See the Google Sheet.");
+      const result = await res.json();
+
+      if (!res.ok || !result?.success) {
+        const message = result?.message || "Submission failed. Please try again.";
+        alert(message);
+        return;
       }
+
+      alert(result?.message || "Submitted! See the Google Sheet.");
 
       form.reset();
       if (typeof window !== "undefined") {
         localStorage.setItem("rsvp_name", (data.name as string) || "");
       }
-    } catch {
-      try {
-        const body = new URLSearchParams(data as Record<string, string>).toString();
-        await fetch(webhook, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-          body
-        });
-        alert("Submitted! (fallback). Check the Google Sheet to confirm.");
-        form.reset();
-      } catch {
-        alert("Submission failed. Double-check:\n• Apps Script deployed as Web app → Anyone\n• Using the /exec URL\n• Env var set for this environment (Preview/Production)\n• Redeployed after changes");
-      }
+    } catch (err) {
+      const message =
+        (err instanceof Error && err.message) ||
+        "Submission failed. Double-check:\n• Apps Script deployed as Web app → Anyone\n• Using the /exec URL\n• Env var set for this environment (Preview/Production)\n• Redeployed after changes";
+      alert(message);
     }
   }
 
@@ -111,12 +92,6 @@ export default function RSVPForm() {
         Submit
       </button>
 
-      {/* Optional: quick indicator if env var is missing */}
-      {!webhook && (
-        <p className="text-xs text-red-300 mt-2">
-          Env var NEXT_PUBLIC_SHEETS_WEBHOOK_URL is not set for this deployment.
-        </p>
-      )}
     </form>
   );
 }
